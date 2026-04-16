@@ -1,1 +1,4 @@
 .DS_Store
+
+# ignore pdf version. Use PNG instead
+diagrams/Project_Map.pdf
