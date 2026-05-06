@@ -1,11 +1,11 @@
-# Using the Python scripts:
+# Using the Python scripts (locatted in the scripts directory):
 - generate_inserts.py
 - maf_sql_generator.py
 - generate_expression_sql.py
 - generate_cna_sql.py
 
 
-# SQL script order
+# SQL script order (located in the SQL directory):
 1. 0_create_tables.sql
 2. 1_populate_clinical.sql
 3. 2_populate_mutations.sql
