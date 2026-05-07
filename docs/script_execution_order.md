@@ -1,4 +1,4 @@
-# Using the Python scripts (locatted in the scripts directory):
+# Using the Python scripts (located in the scripts directory):
 - generate_inserts.py
 - maf_sql_generator.py
 - generate_expression_sql.py

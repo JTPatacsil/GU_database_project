@@ -16,7 +16,7 @@
 - diagrams contatins a visuallized representation of the normalized form of the databse.
 
 
-## Data Sources
+## Data Source
 
 
 ## How to Rrecreate the Database
