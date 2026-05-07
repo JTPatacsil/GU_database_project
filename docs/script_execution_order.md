@@ -1,4 +1,8 @@
 # Using the Python scripts (located in the scripts directory):
+> **_NOTE:_** For the Python scirpts to correctly find the files, set the working directory to the 'scripts' folder before running
+```
+cd scripts
+```
 - generate_inserts.py
 - maf_sql_generator.py
 - generate_expression_sql.py
