@@ -1,5 +1,5 @@
 # Using the Python scripts (located in the scripts directory):
-> **_NOTE:_** For the Python scirpts to correctly find the files, set the working directory to the 'scripts' folder before running
+> **_NOTE:_** For the Python scripts to correctly find the files, set the working directory to the 'scripts' folder before running
 ```
 cd scripts
 ```
