@@ -13,6 +13,8 @@
    - ETSFusion
    - tissueSite
    - pathology
+   - variantClassification
+   - variantType
 2. [Core Entity Tables](#2-core-entity-tables)
    - Patient
    - patientIdMapper
@@ -97,6 +99,24 @@
 
 ---
 
+### `variantClassification`
+
+| Column     | Type             | PK/FK | Description                                                                                                          |
+|------------|------------------|-------|----------------------------------------------------------------------------------------------------------------------|
+| variantClassificationID | TINYINT UNSIGNED | PK   | Auto-incremented surrogate key for the variant classification.                                                    |
+| variant_classification  | VARCHAR(35)      |       | Functional classification of the variant (e.g., Missense_Mutation, Nonsense_Mutation, Frame_Shift_Del, Silent). Sourced from MAF Variant_Classification.|
+
+---
+
+### `variantTypeID`
+
+| Column     | Type             | PK/FK | Description                                                                                                          |
+|------------|------------------|-------|----------------------------------------------------------------------------------------------------------------------|
+| variantTypeID | TINYINT UNSIGNED | PK   | Auto-incremented surrogate key for the pathology classification.                                                    |
+| variant_type  | CHAR(3)      |       | Molecular type of the variant (SNP, INS, DEL). Sourced from MAF Variant_Type.|
+
+---
+
 ## 2. Core Entity Tables
 
 ### `Patient`
@@ -107,7 +127,7 @@
 | raceID         | TINYINT UNSIGNED | FK → race | Foreign key to `race.raceID`. Encodes the patient's race/ethnicity category.                                      |
 | gender         | CHAR(1)          |       | Patient biological sex (`M` = Male, `F` = Female). Sourced from `SEX` in `data_clinical_patient.txt`.                    |
 | chemoRegimenID | TINYINT UNSIGNED | FK → chemoTreatment | Foreign key to `chemoTreatment.chemoRegimenID`. Encodes the patient's assigned chemotherapy regimen.   |
-| diagnosisAge   | TINYINT UNSIGNED |       | Patient's age (in years) at initial prostate cancer diagnosis. Sourced from `AGE_AT_DIAGNOSIS` in `data_clinical_patient.txt`. |
+| diagnosisAge   | DECIMAL(3,1) |       | Patient's age (in years) at initial prostate cancer diagnosis. Sourced from `AGE_AT_DIAGNOSIS` in `data_clinical_patient.txt`. |
 | survivalStatus | INT              |       | Patient's overall survival status. `0` = LIVING; `1` = DECEASED. Sourced from `OS_STATUS` in `data_clinical_patient.txt`. |
 | overallSurvival | DECIMAL(3,1)    |       | Overall survival time in months since initial diagnosis. Sourced from `OS_MONTHS` in `data_clinical_patient.txt`.         |
 
@@ -136,11 +156,11 @@
 | taxaneExposure         | BOOL             |                    | Whether the patient had prior taxane (chemotherapy) exposure at the time of sample procurement (`TRUE`/`FALSE`). Sourced from `TAXANE_EXPOSURE_STATUS` in `data_clinical_sample.txt`.                                                            |
 | ETSFusionID            | TINYINT UNSIGNED | FK → ETSFusion     | Foreign key to `ETSFusion.ETSFusionID`. Encodes the ETS gene fusion status detected in this sample.                                                                                                                                             |
 | tissueSiteID           | TINYINT UNSIGNED | FK → tissueSite    | Foreign key to `tissueSite.tissueSiteID`. Anatomical location of the biopsy.                                                                                                                                                                    |
-| patientAgeAtProcurement | DECIMAL(2,0)    |                    | Patient age in years at the time the specimen was collected. Sourced from `AGE_AT_PROCUREMENT` in `data_clinical_sample.txt`.                                                                                                                    |
+| patientAgeAtProcurement | DECIMAL(3,1)    |                    | Patient age in years at the time the specimen was collected. Sourced from `AGE_AT_PROCUREMENT` in `data_clinical_sample.txt`.                                                                                                                    |
 | gleasonScore           | TINYINT UNSIGNED |                    | Radical prostatectomy Gleason score (integer 1–10). A higher score indicates more aggressive, poorly differentiated tumor histology. Sourced from `GLEASON_SCORE` in `data_clinical_sample.txt`.                                                 |
 | pathologyID            | TINYINT UNSIGNED | FK → pathology     | Foreign key to `pathology.pathologyID`. Histological classification of the tumor.                                                                                                                                                               |
 | offARIS                | BOOL             |                    | Whether the patient was off androgen receptor inhibitor (ARSI) therapy at time of sampling (`TRUE`/`FALSE`). Sourced from `OFF_ARSI` in `data_clinical_sample.txt`.                                                                              |
-| mutationalBurden       | DECIMAL(3,0)     |                    | Tumor mutational burden (TMB), counted as nonsynonymous somatic mutations. Sourced from `TMB_NONSYNONYMOUS` in `data_clinical_sample.txt`.                                                                                                        |
+| mutationalBurden       | DECIMAL(5,3)     |                    | Tumor mutational burden (TMB), counted as nonsynonymous somatic mutations. Sourced from `TMB_NONSYNONYMOUS` in `data_clinical_sample.txt`.                                                                                                        |
 
 ---
 
@@ -226,8 +246,8 @@
 | end_pos                | INT         |       | End position of the variant on the chromosome (1-based). For SNVs, equals `stat_pos`. Sourced from MAF `End_Position`.               |
 | alt_allele             | VARCHAR(50) |       | Alternate (mutant) allele observed in the tumor (e.g., `T`, `–`). Sourced from MAF `Tumor_Seq_Allele2`.                              |
 | dbSNPid                | VARCHAR(11) |       | dbSNP rsID if the variant is a known polymorphism (e.g., `rs12345678`). NULL if novel. Sourced from MAF `dbSNP_RS`.                  |
-| variant_classification | VARCHAR(35) |       | Functional classification of the variant (e.g., `Missense_Mutation`, `Nonsense_Mutation`, `Frame_Shift_Del`, `Silent`). Sourced from MAF `Variant_Classification`. |
-| variant_type           | CHAR(3)     |       | Molecular type of the variant (`SNP`, `INS`, `DEL`). Sourced from MAF `Variant_Type`.                                               |
+| variantClassificationID | TINYINT | FK → variantClassification| Foreign key to variantClassification.variantClassificationID. Functional classification of the variant (e.g., Missense_Mutation, Nonsense_Mutation, Frame_Shift_Del, Silent). |
+| variantTypeID          | TINYINT    | FK → variantType |Foreign key to variantType.variantTypeID. Molecular type of the variant (SNP, INS, DEL). Sourced from MAF Variant_Type. |
 | hgvsp_short            | VARCHAR(25) |       | Short-form HGVS protein-level notation for the amino acid change (e.g., `p.V600E`). NULL for synonymous or non-coding variants. Sourced from MAF `HGVSp_Short`. |
 
 
