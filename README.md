@@ -2,7 +2,7 @@
 
 ## Project Summary
 
-This project was constructed to give experience with cosntructing a database, perform data cleaning, and implemmenting design decisions that shape how the databse is uesd. The overall goal of the databse is to investigate "interesting" mutations and genomic events from a cBioPortal study.
+This project was constructed to give experience with cosntructing a database, perform data cleaning, and implemmenting design decisions that shape how the database is uesd. The overall goal of the database is to investigate "interesting" mutations and genomic events from a cBioPortal study.
 
 ## Tools and Technologies
 - DBMS: MySQL
@@ -10,9 +10,9 @@ This project was constructed to give experience with cosntructing a database, pe
 
 ## Repository structure
 - *Scripts* contain the Python scripts that were used to clean the raw data and generate the SQL insert commands to populate the data into the database.
-- *sql* contains the SQL scripts to create the databse.
-- *data* contains the data stored in the databse
-- *docs* contains additional information about the databse, including rationale, database design choices, limitations, and the data dictionary of the databse tables.
+- *sql* contains the SQL scripts to create the database.
+- *data* contains the data stored in the database
+- *docs* contains additional information about the database, including rationale, database design choices, limitations, and the data dictionary of the database tables.
 - *diagrams* contatins the representation of the normalized form of the database.
 
 
@@ -82,4 +82,4 @@ LIMIT 5;
 
 ![project map](diagrams/Project_Map.png)
 
-The database was constructed to follow the design shown above. The databse was normalized as far  as practically needed, with deliberate deviations and design choices detailed in the [write up document](docs/write-up.docx). 
+The database was constructed to follow the design shown above. The database was normalized as far as practically needed, with deliberate deviations and design choices detailed in the [write up document](docs/write-up.docx). 
